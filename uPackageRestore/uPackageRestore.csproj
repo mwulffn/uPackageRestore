@@ -50,7 +50,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IPackage.cs" />
+    <Compile Include="IPackageRestore.cs" />
     <Compile Include="Package.cs" />
+    <Compile Include="PackageRestore.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
