@@ -7,18 +7,20 @@ using ICSharpCode.SharpZipLib.Zip;
 
 namespace uPackageRestore
 {
-  class Package : uPackageRestore.IPackage
+  public class Package : uPackageRestore.IPackage
   {
+    private IWebClient _webClient;
 
     public string PackageName { get; protected set; }
     public string PackageUrl { get; protected set; }
     public string PackageFolder { get; protected set; }
     public XDocument PackageXml { get; protected set; }
 
-    public Package(string packageUrl, string packageName)
+    public Package(string packageUrl, string packageName, IWebClient webClient = null)
     {
       PackageUrl = packageUrl;
       PackageName = packageName;
+      _webClient = (webClient == null) ? new LiveWebClient() : webClient;
     }
 
     public void ExtractPackage(string workingDirectory)
@@ -27,9 +29,8 @@ namespace uPackageRestore
 
       if (!Directory.Exists(packageFolder))
       {
-        WebClient client = new WebClient();
         string packageFile = Path.GetTempFileName();
-        client.DownloadFile(PackageUrl, packageFile);
+        _webClient.DownloadFile(PackageUrl, packageFile);
 
         DecompressToDirectory(packageFile, packageFolder);
 

@@ -1,6 +1,6 @@
 ﻿namespace uPackageRestore
 {
-  interface IPackageRestore
+  public interface IPackageRestore
   {
     string DestinationDirectory { get; }
     IPackage Package { get; }

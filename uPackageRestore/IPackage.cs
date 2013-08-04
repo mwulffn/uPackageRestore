@@ -2,7 +2,7 @@
 
 namespace uPackageRestore
 {
-  interface IPackage
+  public interface IPackage
   {
     string PackageName { get; }
     string PackageUrl { get; }

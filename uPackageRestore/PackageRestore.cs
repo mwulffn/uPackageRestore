@@ -2,7 +2,7 @@
 
 namespace uPackageRestore
 {
-  class PackageRestore : uPackageRestore.IPackageRestore
+  public class PackageRestore : uPackageRestore.IPackageRestore
   {
     public string DestinationDirectory { get; protected set; }
     public string WorkingDirectory { get; protected set; }
