@@ -37,6 +37,14 @@ namespace uPackageRestore
             foreach (var file in files)
             {
                 string src = file.Descendants("guid").First().Value;
+
+                string currentSourceFile = Path.Combine(PackageFolder, src);
+                if (!File.Exists(currentSourceFile))
+                {
+                  skipped++;
+                  continue;
+                }
+
                 string dest = file.Descendants("orgName").First().Value;
                 string destPath = file.Descendants("orgPath").First().Value;
 
@@ -54,14 +62,11 @@ namespace uPackageRestore
                     continue;
                 }
 
-                Console.WriteLine("Copy '{0}' to '{1}'", src, finalDestination);
-
-
                 if (!Directory.Exists(Path.GetDirectoryName(finalDestination)))
                     Directory.CreateDirectory(Path.GetDirectoryName(finalDestination));
 
-                File.Copy(Path.Combine(PackageFolder, src), finalDestination);
-
+                Console.WriteLine("Copy '{0}' to '{1}'", src, finalDestination);
+                File.Copy(currentSourceFile, finalDestination);
                 copied++;
 
             }
