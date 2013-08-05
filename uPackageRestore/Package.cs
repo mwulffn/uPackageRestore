@@ -27,7 +27,7 @@ namespace uPackageRestore
     {
       string packageFolder = Path.Combine(workingDirectory, PackageName);
 
-      if (!Directory.Exists(packageFolder))
+      if (!Directory.Exists(packageFolder) || !File.Exists(Path.Combine(packageFolder, "package.xml")))
       {
         string packageFile = Path.GetTempFileName();
         _webClient.DownloadFile(PackageUrl, packageFile);

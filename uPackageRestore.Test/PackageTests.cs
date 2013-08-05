@@ -37,6 +37,21 @@ namespace uPackageRestore.Test
     }
 
     [TestMethod]
+    public void TestExtractPackageWithEmptyPackageDirectory()
+    {
+      var webClient = new Fakes.FakeWebClient();
+      _package = new Package(TestPackageUrl, TestPackageName, webClient);
+      string workingDirectory = SetupWorkingDirectory();
+      string packageDirectory = Path.Combine(workingDirectory, TestPackageName);
+      Directory.CreateDirectory(packageDirectory);
+
+      _package.ExtractPackage(workingDirectory);
+
+      Assert.IsTrue(File.Exists(Path.Combine(workingDirectory, TestPackageName, "fa27b457-2d5f-4ea4-b57d-f05684cba07a.dll")));
+      Assert.IsTrue(File.Exists(Path.Combine(workingDirectory, TestPackageName, "Package.xml")));
+    }
+
+    [TestMethod]
     public void TestOpenPackageFolder()
     {
       string workingDirectory = SetupPackage();
