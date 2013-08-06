@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uPackageRestore", "uPackageRestore\uPackageRestore.csproj", "{0FE43C38-918D-401B-898F-6C38997C0C13}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{82AF5316-4A2B-481C-82B5-93F43EA03EC7}"
@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{82AF53
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uPackageRestore.Test", "uPackageRestore.Test\uPackageRestore.Test.csproj", "{995A77E4-263A-419E-995D-18BDA5F66B6E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +22,10 @@ Global
 		{0FE43C38-918D-401B-898F-6C38997C0C13}.Debug|x86.Build.0 = Debug|x86
 		{0FE43C38-918D-401B-898F-6C38997C0C13}.Release|x86.ActiveCfg = Release|x86
 		{0FE43C38-918D-401B-898F-6C38997C0C13}.Release|x86.Build.0 = Release|x86
+		{995A77E4-263A-419E-995D-18BDA5F66B6E}.Debug|x86.ActiveCfg = Debug|x86
+		{995A77E4-263A-419E-995D-18BDA5F66B6E}.Debug|x86.Build.0 = Debug|x86
+		{995A77E4-263A-419E-995D-18BDA5F66B6E}.Release|x86.ActiveCfg = Release|x86
+		{995A77E4-263A-419E-995D-18BDA5F66B6E}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
