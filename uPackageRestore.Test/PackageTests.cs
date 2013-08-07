@@ -7,9 +7,16 @@ namespace uPackageRestore.Test
   [TestClass]
   public class PackageTests
   {
+    // Test package for normal http operation
     public const string TestPackageFile = "TestFiles\\Document_Type_Picker_1.0.zip";
     public const string TestPackageName = "Test Package";
-    public const string TestPackageUrl = "http://localhost/file.zip";
+    public const string TestPackageUrl = "http://localhost/Document_Type_Picker_1.0.zip";
+
+    
+    // Test package for file-based operation
+    public const string TestFileBasedPackageFile = "TestFiles\\custom.zip";
+    public const string TestFileBasedPackageName = "Custom Package";
+    public const string TestFileBasedPackageUrl = "Testfiles\\custom.zip";
 
     private IPackage _package;
 
@@ -22,9 +29,10 @@ namespace uPackageRestore.Test
     }
 
     [TestMethod]
-    public void TestPackageExists()
+    public void TestPackagesExists()
     {
       Assert.IsTrue(File.Exists(TestPackageFile), "Could not find the test package file: " + TestPackageFile);
+      Assert.IsTrue(File.Exists(TestFileBasedPackageFile), "Could not find the test package file: " + TestFileBasedPackageFile);
     }
 
     [TestMethod]
@@ -34,6 +42,15 @@ namespace uPackageRestore.Test
 
       Assert.IsTrue(File.Exists(Path.Combine(workingDirectory, TestPackageName, "fa27b457-2d5f-4ea4-b57d-f05684cba07a.dll")));
       Assert.IsTrue(File.Exists(Path.Combine(workingDirectory, TestPackageName, "Package.xml")));
+    }
+
+    [TestMethod]
+    public void TestExtractFileBasedPackage()
+    {
+      string workingDirectory = SetupFileBasedPackage();
+
+      Assert.IsTrue(File.Exists(Path.Combine(workingDirectory, TestFileBasedPackageName, "3593d8e7-8b35-47b9-beda-5e830ca8c93c.dll")));
+      Assert.IsTrue(File.Exists(Path.Combine(workingDirectory, TestFileBasedPackageName, "Package.xml")));
     }
 
     [TestMethod]
@@ -77,6 +94,15 @@ namespace uPackageRestore.Test
       return workingDirectory;
     }
 
+    private string SetupFileBasedPackage()
+    {
+      var webClient = new Fakes.FakeWebClient();
+      _package = new Package(TestFileBasedPackageUrl, TestFileBasedPackageName, webClient);
+      string workingDirectory = SetupWorkingDirectory();
+      _package.ExtractPackage(workingDirectory);
+      return workingDirectory;
+    }
+
     public static string SetupWorkingDirectory()
     {
       string workingDirectory = Path.GetDirectoryName(TestPackageFile);
@@ -84,6 +110,10 @@ namespace uPackageRestore.Test
         Directory.CreateDirectory(workingDirectory);
 
       string packageDirectory = Path.Combine(workingDirectory, TestPackageName);
+      if (Directory.Exists(packageDirectory))
+        Directory.Delete(packageDirectory, true);
+      
+      packageDirectory = Path.Combine(workingDirectory, TestFileBasedPackageName);
       if (Directory.Exists(packageDirectory))
         Directory.Delete(packageDirectory, true);
 
