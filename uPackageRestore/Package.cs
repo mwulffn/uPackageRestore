@@ -30,10 +30,8 @@ namespace uPackageRestore
       if (!Directory.Exists(packageFolder) || !File.Exists(Path.Combine(packageFolder, "package.xml")))
       {
         string packageFile = Path.GetTempFileName();
-        _webClient.DownloadFile(PackageUrl, packageFile);
-
+        DownloadFile(PackageUrl, packageFile);
         DecompressToDirectory(packageFile, packageFolder);
-
         File.Delete(packageFile);
       }
 
@@ -41,6 +39,14 @@ namespace uPackageRestore
     }
 
 
+    private void DownloadFile(string sourceUrl, string destinationFile)
+    {
+      if (!sourceUrl.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+        File.Copy(sourceUrl, destinationFile, true);
+      else
+        _webClient.DownloadFile(sourceUrl, destinationFile);
+    }
+    
     public void OpenPackageFolder(string packageFolder)
     {
       PackageFolder = packageFolder;
